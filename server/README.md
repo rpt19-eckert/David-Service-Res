@@ -1,5 +1,6 @@
 # CRUD API (in progress)
 
+
 ## Table of Contents
 
 1. [GET](#GET)
@@ -7,7 +8,8 @@
 1. [PUT](#PUT)
 1. [DELETE](#DELETE)
 
-## GET
+
+## Create/GET
 
 ### /listingInfo
 returns an object based on row selected (which is based on listingId) in the **listing items** table:
@@ -28,8 +30,9 @@ results = {
 }
 ```
 
+
 ### /getBookedDates
-returns an object based on rows selected (which are based on listingId) in the **listing items** table:
+returns an object based on rows selected (which are based on listingId) in the **bookings** table:
 id | listingId | nights | month | checkIn | checkOut | guests | children | infants
 -- | --------- | ------ | ----- | ------- | -------- | ------ | -------- | -------
 13 | 10003 | 4 | '04' | '04-6' | '04-10' | 2 | 0 | 0
@@ -98,11 +101,12 @@ results = [
 ]
 ```
 
-## POST
-### /postBookedDates
+## Read/POST
+
+### /postBooking
+receives the following object, and inserts into bookings table
+
+## Update/PUT
 
 
-## PUT
-
-
-## DELETE
+## Delete/DELETE

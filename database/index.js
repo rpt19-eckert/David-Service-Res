@@ -28,7 +28,21 @@ const getBookedDates = (listingId, callback) => {
   })
 }
 
+const postBooking = (values, callback) => {
+
+  var queryStr = `INSERT INTO BOOKINGS VALUES(${obj.id}, ${obj.listingId}, ${obj.nights}, ${obj.month}, ${obj.checkIn}, ${obj.checkOut}, ${obj.guests}, ${obj.children}, ${obj.infants});`
+  
+  connection.query(queryStr, (err, results) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  })
+
+}
+
 
 module.exports = {
-  connection, getListingInfo, getBookedDates
+  connection, getListingInfo, getBookedDates, postBooking
 }

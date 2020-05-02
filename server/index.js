@@ -6,6 +6,7 @@ const { connection, getListingInfo, getBookedDates } = require ('../database');
 const fs = require('fs');
 const fullPath = '/Users/yingwenchen/Desktop/HR project/HR_RPT/FEC/FEC_Yingwen_service/client/dist/index.html';
 
+
 const app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
@@ -56,7 +57,22 @@ app.get('/getBookedDates', (req, res) => {
 
 })
 
-app.get('/postBookedDates', (req, res) => {  
+app.post('/postBooking', (req, res) => {  
+  var { booking } = req.body;
+  console.log('booking', booking)
+  
+  postBooking(booking, (err, results) => {
+    if (err) {
+      res.status(404).end('NOT FOUND');
+    } else {
+      var stringifyResults = JSON.stringify(results);
+      res.status(202).end(stringifyResults);
+    }
+  })
+
+})
+
+app.update('/postBookedDates', (req, res) => {  
   // var listingId = req.body.listingId;
   // //console.log('reqbody', req.body)
   // //console.log('listingId from getBookedDates', listingId)
