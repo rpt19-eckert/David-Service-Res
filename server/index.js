@@ -2,12 +2,13 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { connection, getListingInfo, getBookedDates } = require ('../database');
+const { db, getListingInfo, getListingBookings } = require ('../database');
 const fs = require('fs');
 const fullPath = '/Users/yingwenchen/Desktop/HR project/HR_RPT/FEC/FEC_Yingwen_service/client/dist/index.html';
-
-
+const cors = require('cors');
 const app = express();
+
+app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
   extended: true
@@ -18,41 +19,26 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
-
-
-app.get('/listingInfo', (req, res) => {
+app.get('/getListingInfo', (req, res) => {
   //should give listingId 10001 back to the client when page first renders
-  var reqId = req.query.listingId //.listingId;
-  //console.log('reqID', reqId)
-  getListingInfo(reqId, (err, results) => {
-    if (err) {
-      res.status(404).end('NOT FOUND')
-      console.log('err', err);
-    } else {
-      var stringifyResults = JSON.stringify(results);
-      res.status(200).end(stringifyResults);
-    }
+  var { listingId } = req.query;
+  
+  getListingInfo(listingId, (err, results) => {
+    if (err) res.status(404).send('NOT FOUND');
+      
+    res.status(200).send(JSON.stringify(results));
   });
 })
 
-//i want to change to get
+//**i want to change to get
 // app.post('/getBookedDates', (req, res) => {
-app.get('/getBookedDates', (req, res) => {  
-  var listingId = req.body.listingId;
-  //console.log('reqbody', req.body)
-  //console.log('listingId from getBookedDates', listingId)
-  getBookedDates(listingId, (err, results) => {
-    if (err) {
-      res.status(404).end('NOT FOUND');
-    } else {
-      var stringifyResults = JSON.stringify(results);
-     // console.log(stringifyResults)
-      res.status(202).end(stringifyResults);
-    }
+app.get('/getListingBookings', (req, res) => {  
+  var { listingId } = req.body;
+  
+  getListingBookings(listingId, (err, results) => {
+    if (err) res.status(404).send('NOT FOUND');
+
+    res.status(200).send(JSON.stringify(results));
   })
 
 })
@@ -72,12 +58,29 @@ app.post('/postBooking', (req, res) => {
 
 })
 
-app.update('/updateBooking', (req, res) => {  
+app.put('/updateBooking', (req, res) => {  
   var { updates } = req.body;
 
   console.log('reqbody', req.body)
   // //console.log('listingId from getBookedDates', listingId)
   updateBooking(listingId, updates, (err, results) => {
+    if (err) {
+      res.status(404).end('NOT FOUND');
+    } else {
+      var stringifyResults = JSON.stringify(results);
+     // console.log(stringifyResults)
+      res.status(202).end(stringifyResults);
+    }
+  })
+
+})
+
+app.delete('/deleteBooking', (req, res) => {  
+  var { updates } = req.body;
+
+  console.log('reqbody', req.body)
+  // //console.log('listingId from getBookedDates', listingId)
+  deleteBooking(listingId, updates, (err, results) => {
     if (err) {
       res.status(404).end('NOT FOUND');
     } else {

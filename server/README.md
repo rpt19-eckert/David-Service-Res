@@ -9,9 +9,9 @@
 1. [DELETE](#DELETE)
 
 
-## Create/GET
+## Read/GET
 
-### /listingInfo
+### /getListingInfo?listingId=
 returns an object based on row selected (which is based on listingId) in the **listing items** table:
 id | listingId | listingName | pricePerNight | weekend | weekendPrice | maxGuests | tax
 -- | --------- | ----------- | ------------- | ------- | ------------ | --------- | ---
@@ -31,7 +31,7 @@ results = {
 ```
 
 
-### /getBookedDates
+### /getListingBookings
 returns an object based on rows selected (which are based on listingId) in the **bookings** table:
 id | listingId | nights | month | checkIn | checkOut | guests | children | infants
 -- | --------- | ------ | ----- | ------- | -------- | ------ | -------- | -------
@@ -101,12 +101,17 @@ results = [
 ]
 ```
 
-## Read/POST
+## Create/POST
 
 ### /postBooking
 receives the following object, and inserts into bookings table
 
 ## Update/PUT
-receives values and updates row
+
+### /updateBooking
+receives listingId, and values to update
 
 ## Delete/DELETE
+
+### /deleteBooking
+receives listingId, and deletes row from table

@@ -1,25 +1,32 @@
 const mysql = require('mysql');
 const mysqlConfig = require('./config.js');
 
-const connection = mysql.createConnection(mysqlConfig);
+const db = mysql.createConnection(mysqlConfig);
 
 const getListingInfo = (listingId, callback) => {
-  var queryStr = `Select * from listingItems Where listingId=${listingId};`
-
-  connection.query(queryStr, (err, results) => {
+  
+  var queryStr = `
+  SELECT * FROM listingItems 
+  WHERE listingId = ${listingId} `;
+  
+  db.query(queryStr, (err, results) => {
     if (err) {
       callback(err, null);
       console.log('err from db')
     } else {
       callback(null, results);
-      ('success from db')
+      console.log(results)
     }
   })
 }
 
-const getBookedDates = (listingId, callback) => {
-  var queryStr = `Select * from bookings Where listingId=${listingId};`
-  connection.query(queryStr, (err, results) => {
+const getListingBookings = (listingId, callback) => {
+  
+  var queryStr = `
+  SELECT * FROM bookings 
+  WHERE listingId = ${listingId} `;
+  
+  db.query(queryStr, (err, results) => {
     if (err) {
       callback(err, null);
     } else {
@@ -42,9 +49,9 @@ const postBooking = (values, callback) => {
     ${obj.guests}, 
     ${obj.children}, 
     ${obj.infants}
-    );`
+    ) `;
   
-  connection.query(queryStr, (err, results) => {
+    db.query(queryStr, (err, results) => {
     if (err) {
       callback(err, null);
     } else {
@@ -68,10 +75,27 @@ const updateBooking = (listingId, values, callback) => {
    children = ${values.children},
    infants = ${values.infants}
    WHERE id = ${listingId}
-   ;`
+   `
   
   
-  connection.query(queryStr, (err, results) => {
+   db.query(queryStr, (err, results) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  })
+
+}
+
+const deleteBooking = (listingId, values, callback) => {
+
+  var queryStr = `
+  DELETE FROM bookings
+  WHERE id = listingId
+  `
+  
+  db.query(queryStr, (err, results) => {
     if (err) {
       callback(err, null);
     } else {
@@ -83,5 +107,10 @@ const updateBooking = (listingId, values, callback) => {
 
 
 module.exports = {
-  connection, getListingInfo, getBookedDates, postBooking, updateBooking
+  db, 
+  getListingInfo, 
+  getListingBookings, 
+  postBooking, 
+  updateBooking,
+  deleteBooking
 }
