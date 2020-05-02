@@ -1,20 +1,21 @@
-# CRUD API
+# CRUD API (in progress)
 
-##Table of Contents
+## Table of Contents
 
 1. [GET](#GET)
 1. [POST](#POST)
 1. [PUT](#PUT)
 1. [DELETE](#DELETE)
 
-##GET
+## GET
 
-###/listingInfo
+### /listingInfo
 returns an object based on row selected (which is based on listingId) in the **listing items** table:
 id | listingId | listingName | pricePerNight | weekend | weekendPrice | maxGuests | tax
 -- | --------- | ----------- | ------------- | ------- | ------------ | --------- | ---
 3 | 10003 | 'Multibyte_Program_Opensource_house' | 129.00 | 0 | 1.1 | 3 | 1.12
 
+```javascript
 results = {
     id : 3, 
     listingId : 10003,
@@ -25,8 +26,9 @@ results = {
     maxGuests: 3,
     tax: 1.12
 }
+```
 
-###/getBookedDates
+### /getBookedDates
 returns an object based on rows selected (which are based on listingId) in the **listing items** table:
 id | listingId | nights | month | checkIn | checkOut | guests | children | infants
 -- | --------- | ------ | ----- | ------- | -------- | ------ | -------- | -------
@@ -36,7 +38,8 @@ id | listingId | nights | month | checkIn | checkOut | guests | children | infan
 16 | 10003 | 5 | '05' | '05-21' | '05-26' | 1 | 0 | 0 
 17 | 10003 | 4 | '05' | '05-30' | '06-3' | 1 | 0 | 0 
 
-[
+```javascript
+results = [
   {
     id: 13,
     listingId: 10003,
@@ -93,13 +96,13 @@ id | listingId | nights | month | checkIn | checkOut | guests | children | infan
     infants: 0
   }
 ]
+```
 
-##POST
-###/postBookedDates
+## POST
+### /postBookedDates
 
 
-##PUT
+## PUT
 
-##PATCH
 
-##DELETE
+## DELETE
