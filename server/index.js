@@ -72,19 +72,20 @@ app.post('/postBooking', (req, res) => {
 
 })
 
-app.update('/postBookedDates', (req, res) => {  
-  // var listingId = req.body.listingId;
-  // //console.log('reqbody', req.body)
+app.update('/updateBooking', (req, res) => {  
+  var { updates } = req.body;
+
+  console.log('reqbody', req.body)
   // //console.log('listingId from getBookedDates', listingId)
-  // getBookedDates(listingId, (err, results) => {
-  //   if (err) {
-  //     res.status(404).end('NOT FOUND');
-  //   } else {
-  //     var stringifyResults = JSON.stringify(results);
-  //    // console.log(stringifyResults)
-  //     res.status(202).end(stringifyResults);
-  //   }
-  // })
+  updateBooking(listingId, updates, (err, results) => {
+    if (err) {
+      res.status(404).end('NOT FOUND');
+    } else {
+      var stringifyResults = JSON.stringify(results);
+     // console.log(stringifyResults)
+      res.status(202).end(stringifyResults);
+    }
+  })
 
 })
 

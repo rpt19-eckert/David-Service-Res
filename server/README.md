@@ -107,6 +107,6 @@ results = [
 receives the following object, and inserts into bookings table
 
 ## Update/PUT
-
+receives values and updates row
 
 ## Delete/DELETE

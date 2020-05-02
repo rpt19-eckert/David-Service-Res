@@ -30,7 +30,46 @@ const getBookedDates = (listingId, callback) => {
 
 const postBooking = (values, callback) => {
 
-  var queryStr = `INSERT INTO BOOKINGS VALUES(${obj.id}, ${obj.listingId}, ${obj.nights}, ${obj.month}, ${obj.checkIn}, ${obj.checkOut}, ${obj.guests}, ${obj.children}, ${obj.infants});`
+  var queryStr = `
+  INSERT INTO BOOKINGS 
+  VALUES(
+    ${obj.id}, 
+    ${obj.listingId}, 
+    ${obj.nights}, 
+    ${obj.month}, 
+    ${obj.checkIn}, 
+    ${obj.checkOut}, 
+    ${obj.guests}, 
+    ${obj.children}, 
+    ${obj.infants}
+    );`
+  
+  connection.query(queryStr, (err, results) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  })
+
+}
+
+const updateBooking = (listingId, values, callback) => {
+
+  var queryStr = `
+  UPDATE BOOKINGS 
+   SET 
+   listingId = ${values.listingId},
+   nights = ${values.nights},
+   month = ${values.month},
+   checkIn = ${values.checkIn},
+   checkOut = ${values.checkOut},
+   guests = ${values.guests},
+   children = ${values.children},
+   infants = ${values.infants}
+   WHERE id = ${listingId}
+   ;`
+  
   
   connection.query(queryStr, (err, results) => {
     if (err) {
@@ -44,5 +83,5 @@ const postBooking = (values, callback) => {
 
 
 module.exports = {
-  connection, getListingInfo, getBookedDates, postBooking
+  connection, getListingInfo, getBookedDates, postBooking, updateBooking
 }
