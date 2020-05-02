@@ -38,8 +38,9 @@ app.get('/listingInfo', (req, res) => {
   });
 })
 
-
-app.post('/getBookedDates', (req, res) => {
+//i want to change to get
+// app.post('/getBookedDates', (req, res) => {
+app.get('/getBookedDates', (req, res) => {  
   var listingId = req.body.listingId;
   //console.log('reqbody', req.body)
   //console.log('listingId from getBookedDates', listingId)
@@ -54,17 +55,35 @@ app.post('/getBookedDates', (req, res) => {
   })
 
 })
-app.get('/:id', (req, res) => {
- // console.log('hit here', __dirname)
-  //res.render(fullPath)
-  fs.readFile(fullPath, 'utf8', (err, results) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.end(results);
-    }
-  })
+
+app.get('/postBookedDates', (req, res) => {  
+  // var listingId = req.body.listingId;
+  // //console.log('reqbody', req.body)
+  // //console.log('listingId from getBookedDates', listingId)
+  // getBookedDates(listingId, (err, results) => {
+  //   if (err) {
+  //     res.status(404).end('NOT FOUND');
+  //   } else {
+  //     var stringifyResults = JSON.stringify(results);
+  //    // console.log(stringifyResults)
+  //     res.status(202).end(stringifyResults);
+  //   }
+  // })
+
 })
+
+
+// app.get('/:id', (req, res) => {
+//  // console.log('hit here', __dirname)
+//   //res.render(fullPath)
+//   fs.readFile(fullPath, 'utf8', (err, results) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.end(results);
+//     }
+//   })
+// })
 
 
 
