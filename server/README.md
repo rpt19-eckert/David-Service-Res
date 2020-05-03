@@ -3,10 +3,11 @@
 
 ## Table of Contents
 
-1. [POST](#POST)
-1. [GET](#GET)
-1. [PUT](#PUT)
-1. [DELETE](#DELETE)
+1. [POST](#create---post)
+1. [GET](#read---get)
+1. [PUT](#update---put)
+1. [DELETE](#delete---delete)
+
 
 
 ## Create - POST
@@ -28,10 +29,11 @@ Receives json object following below format, and inserts into bookings table:
 ```
 
 
+
 ## Read - GET
 
 ### /listing/:id
-Retrieve listing information for listing specified in url params by :id:
+Retrieve listing information for listing specified in url params by :id
 
 ```javascript
 results = {
@@ -66,6 +68,7 @@ results = [
 ```
 
 
+
 ## Update - PUT
 
 ### /booking/update/:bookingId
@@ -80,8 +83,9 @@ Updates booking information, specified in url params by :bookingId, with informa
     guests: 2,
     children: 1,
     infants: 0
-  },
+}
 ```
+
 
 
 ## Delete - DELETE
