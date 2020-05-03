@@ -1,21 +1,37 @@
-# CRUD API (in progress)
+# CRUD API FOR RESERVATIONS SERVICE
 
 
 ## Table of Contents
 
-1. [GET](#GET)
 1. [POST](#POST)
+1. [GET](#GET)
 1. [PUT](#PUT)
 1. [DELETE](#DELETE)
 
 
-## Read/GET
+## Create - POST
+
+### /booking/new
+Create a new booking!
+Receives json object following below format, and inserts into bookings table:
+```javascript
+{
+    listingId: 10026,
+    nights: 4,
+    month: '04',
+    checkIn: '04-22',
+    checkOut: '04-26',
+    guests: 2,
+    children: 1,
+    infants: 0
+  },
+```
+
+
+## Read - GET
 
 ### /listing/:id
-returns an object based on row selected (which is based on listingId) in the **listing items** table:
-id | listingId | listingName | pricePerNight | weekend | weekendPrice | maxGuests | tax
--- | --------- | ----------- | ------------- | ------- | ------------ | --------- | ---
-3 | 10003 | 'Multibyte_Program_Opensource_house' | 129.00 | 0 | 1.1 | 3 | 1.12
+Retrieve listing information for listing specified in url params by :id:
 
 ```javascript
 results = {
@@ -30,88 +46,45 @@ results = {
 }
 ```
 
-
 ### /booking/:id
-returns an object based on rows selected (which are based on listingId) in the **bookings** table:
-id | listingId | nights | month | checkIn | checkOut | guests | children | infants
--- | --------- | ------ | ----- | ------- | -------- | ------ | -------- | -------
-13 | 10003 | 4 | '04' | '04-6' | '04-10' | 2 | 0 | 0
-14 | 10003 | 3 | '04' | '04-29' | '05-2' | 2 | 0 | 0 
-15 | 10003 | 5 | '05' | '05-7' | '05-12' | 1 | 0 | 0
-16 | 10003 | 5 | '05' | '05-21' | '05-26' | 1 | 0 | 0 
-17 | 10003 | 4 | '05' | '05-30' | '06-3' | 1 | 0 | 0 
-
+Retrieve bookings' information for listing specified in url params by :id
 ```javascript
 results = [
   {
-    id: 13,
+    id: 612,
     listingId: 10003,
     nights: 4,
     month: '04',
-    checkIn: '04-6',
-    checkOut: '04-10',
+    checkIn: '04-22',
+    checkOut: '04-26',
     guests: 2,
-    children: 0,
-    infants: 0
-  },
-  {
-    id: 14,
-    listingId: 10003,
-    nights: 3,
-    month: '04',
-    checkIn: '04-29',
-    checkOut: '05-2',
-    guests: 2,
-    children: 0,
-    infants: 0
-  },
-  {
-    id: 15,
-    listingId: 10003,
-    nights: 5,
-    month: '05',
-    checkIn: '05-7',
-    checkOut: '05-12',
-    guests: 1,
-    children: 0,
-    infants: 0
-  },
-  {
-    id: 16,
-    listingId: 10003,
-    nights: 5,
-    month: '05',
-    checkIn: '05-21',
-    checkOut: '05-26',
-    guests: 1,
-    children: 0,
-    infants: 0
-  },
-  {
-    id: 17,
-    listingId: 10003,
-    nights: 4,
-    month: '05',
-    checkIn: '05-30',
-    checkOut: '06-3',
-    guests: 1,
-    children: 0,
+    children: 1,
     infants: 0
   }
+  //,{},{}...
 ]
 ```
 
-## Create/POST
 
-### /booking/new
-receives the following object, and inserts into bookings table
-
-## Update/PUT
+## Update - PUT
 
 ### /booking/update/:bookingId
-receives listingId, and values to update
+Updates booking information, specified in url params by :bookingId, with information provided by following json object:
+```javascript
+{
+    listingId: 10003,
+    nights: 4,
+    month: '04',
+    checkIn: '04-22',
+    checkOut: '04-26',
+    guests: 2,
+    children: 1,
+    infants: 0
+  },
+```
 
-## Delete/DELETE
+
+## Delete - DELETE
 
 ### /booking/delete/:bookingId
-receives listingId, and deletes row from table
+Deletes booking specified in url params by :bookingId 
