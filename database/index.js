@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const mysqlConfig = require('./config.js');
+const _ = require('lodash');
 
 const db = mysql.createConnection(mysqlConfig);
 
@@ -35,51 +36,49 @@ const getListingBookings = (listingId, callback) => {
   })
 }
 
-const postBooking = (values, callback) => {
+const postBooking = (newBooking, callback) => {
 
+  var columns = '', values = '';
+
+  _.each(newBooking, (val, key) => {
+    columns+= `${key},`;
+    values+= `${typeof val === 'string' ? `'${val}'` : val},`;
+  })
+  columns = columns.substring(0, columns.length - 1);
+  values = values.substring(0, values.length - 1);
+  
   var queryStr = `
-  INSERT INTO BOOKINGS 
-  VALUES(
-    ${obj.id}, 
-    ${obj.listingId}, 
-    ${obj.nights}, 
-    ${obj.month}, 
-    ${obj.checkIn}, 
-    ${obj.checkOut}, 
-    ${obj.guests}, 
-    ${obj.children}, 
-    ${obj.infants}
-    ) `;
+  INSERT INTO BOOKINGS (${columns})
+  VALUES(${values}) `;
   
     db.query(queryStr, (err, results) => {
-    if (err) {
-      callback(err, null);
-    } else {
-      callback(null, results);
-    }
+      if (err) {
+        console.log(err);
+        callback(err, null);
+      } else {
+        callback(null, results);
+      }
   })
 
 }
 
-const updateBooking = (listingId, values, callback) => {
+const updateBooking = (bookingId, updatedBooking, callback) => {
 
+  var keyVals = '';
+ _.each(updatedBooking, (val, key) => {
+    keyVals+= `${key}=${typeof val === 'string' ? `'${val}'` : val},`;
+  })
+  keyVals = keyVals.substring(0, keyVals.length - 1);
+  
   var queryStr = `
   UPDATE BOOKINGS 
-   SET 
-   listingId = ${values.listingId},
-   nights = ${values.nights},
-   month = ${values.month},
-   checkIn = ${values.checkIn},
-   checkOut = ${values.checkOut},
-   guests = ${values.guests},
-   children = ${values.children},
-   infants = ${values.infants}
-   WHERE id = ${listingId}
-   `
-  
+   SET ${keyVals}
+   WHERE id = ${bookingId}
+   `;
   
    db.query(queryStr, (err, results) => {
     if (err) {
+      console.log(err)
       callback(err, null);
     } else {
       callback(null, results);
@@ -88,12 +87,12 @@ const updateBooking = (listingId, values, callback) => {
 
 }
 
-const deleteBooking = (listingId, values, callback) => {
+const deleteBooking = (bookingId, callback) => {
 
   var queryStr = `
   DELETE FROM bookings
-  WHERE id = listingId
-  `
+  WHERE id = ${bookingId}
+  `;
   
   db.query(queryStr, (err, results) => {
     if (err) {
