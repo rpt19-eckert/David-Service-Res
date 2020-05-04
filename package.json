@@ -8,9 +8,10 @@
     "node": "^12.16.13"
   },
   "scripts": {
-    "react-dev": "webpack -d --watch",
-    "start": "nodemon --inspect server/index.js",
     "generate-data": "node database/simulated-dataset/generate_data.js",
+    "load-pg-data": "node database/simulated-dataset/load-data/load_to_pgSQL.js",
+    "react-dev": "webpack -d --watch",
+    "start": "nodemon server/index.js",
     "test": "jest"
   },
   "dependencies": {
@@ -29,6 +30,7 @@
     "morgan": "^1.9.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2",
+    "pg": "^8.0.3",
     "react": "^16.12.0",
     "react-dates": "^21.8.0",
     "react-dom": "^16.12.0",
