@@ -1,5 +1,6 @@
 const faker = require ('faker');
-
+const fs = require('fs');
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var generateListingName = () => {
   var catchPhrase = faker.hacker.adjective()
   var bsAdjective = faker.hacker.noun()
@@ -12,11 +13,11 @@ var generateListingName = () => {
   str = str.replace(/( |-)/g, '');
   return str;
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var generateListings = (numOfListings) => {
   var weekend, pricePerNight, random, maxGuests;
   var listingData = '';
-  //10010002
+  
   for (var i = 10001; i < 10001 + numOfListings; i++) {
     listingName = generateListingName();
     
@@ -28,11 +29,18 @@ var generateListings = (numOfListings) => {
     maxGuests = Math.floor(Math.random() * 3 + 2);
     
     listingData += `${i},"${listingName}",${pricePerNight},${weekend},1.1,${maxGuests},1.12\r\n`
+
+    if (i === 5010001) {
+      fs.appendFileSync(__dirname + '/listings.txt', listingData);
+      listingData = '';
+    }
   }
 
-  return listingData;
-}
+  fs.appendFileSync(__dirname + '/listings.txt', listingData);
 
+  return;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports = generateListings;
 
 

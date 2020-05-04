@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const fs = require('fs');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var randomNum = (min, max) => {
     return min + Math.floor(Math.random() * ((max + 1) - min));
@@ -19,6 +20,7 @@ var dateBasedOnCalendarIdx = (acum) => {
             return false;
         }
     })
+    
     return `${month}-${day}`;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,8 +58,14 @@ var generateBookings = (numOfListings) => {
         numOfBookings = randomNum(2, 12);
         bookingsData += generateBookingsForListing(id, i + 10000, numOfBookings);
         id+= numOfBookings;
+        if ( !(i % 750000) ) {
+            fs.appendFileSync(__dirname + '/bookings.txt', bookingsData);
+            bookingsData = '';
+        };
     }
-    return bookingsData;
+    fs.appendFileSync(__dirname + '/bookings.txt', bookingsData);
+    console.log(id - 1);
+    return;
 };
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports = generateBookings;
