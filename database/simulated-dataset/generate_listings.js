@@ -13,11 +13,11 @@ var generateListingName = () => {
   return str;
 }
 
-var generateListings = () => {
+var generateListings = (numOfListings) => {
   var weekend, pricePerNight, random, maxGuests;
   var listingData = '';
   //10010002
-  for (var i = 10001; i < 10101; i++) {
+  for (var i = 10001; i < 10001 + numOfListings; i++) {
     listingName = generateListingName();
     
     pricePerNight = faker.commerce.price(100, 180.00, 2); 

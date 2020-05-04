@@ -5,7 +5,7 @@
   "author": "Ying",
   "license": "",
   "engines": {
-    "node": ">=6.13.0"
+    "node": "^12.16.13"
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
