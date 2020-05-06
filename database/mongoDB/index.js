@@ -13,3 +13,4 @@ db
     console.log(err);
 })
 
+module.exports = db;

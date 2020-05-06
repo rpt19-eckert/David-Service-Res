@@ -55,19 +55,19 @@ client
     console.log('Created table bookings');
     
     return client.query(
-        `COPY listings FROM '${__dirname}\\..\\data-postgreSQL\\listings.txt' WITH CSV HEADER`
+        `COPY listings FROM '${__dirname}\\..\\data-csv\\listings.txt' WITH CSV HEADER`
     )
 })
 .then(() => {
     console.log('Populated listings table with data!');
     return client.query(
-        `COPY bookings FROM '${__dirname}\\..\\data-postgreSQL\\bookings1.txt' WITH CSV HEADER`
+        `COPY bookings FROM '${__dirname}\\..\\data-csv\\bookings1.txt' WITH CSV HEADER`
     )
 })
 .then(() => {
     console.log('Populated bookings table with data (1)!');
     return client.query(
-        `COPY bookings FROM '${__dirname}\\..\\data-postgreSQL\\bookings2.txt' WITH CSV HEADER`
+        `COPY bookings FROM '${__dirname}\\..\\data-csv\\bookings2.txt' WITH CSV HEADER`
     )
 })
 .then(() => {

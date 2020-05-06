@@ -50,11 +50,9 @@ var generateBookingsForListing = (id, listingId, numOfBookings) => {
     return bookingData;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var generateBookings = (numOfListings, db) => {
+var generateBookings = (numOfListings) => {
     var fileName = 'bookings1';
-    var bookingsData = db === 'postgreSQL' 
-    ? 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n'
-    : '';
+    var bookingsData = 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n';
     
     var id = 1;
     var numOfBookings = 0;
@@ -70,9 +68,7 @@ var generateBookings = (numOfListings, db) => {
             bookingsData = '';
             if (i === 5000000) {
                 fileName = 'bookings2';
-                bookingsData = db === 'postgreSQL' 
-                ? 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n'
-                : '';
+                bookingsData = 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n';
             }
         };
 

@@ -8,7 +8,7 @@
     "node": "^12.16.13"
   },
   "scripts": {
-    "generate-data-postgreSQL": "node --max-old-space-size=5120 database/simulated-dataset/generate-data/generate_data_postgreSQL.js",
+    "generate-data-csv": "node --max-old-space-size=5120 database/simulated-dataset/generate-data/generate_data_csv.js",
     "generate-data-mongoDB": "node --max-old-space-size=5120 database/simulated-dataset/generate-data/generate_data_mongoDB.js",
     "load-data-postgreSQL": "cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-postgreSQL/listings.txt /e /p Everyone:f && cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-postgreSQL/bookings1.txt /e /p Everyone:f && cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-postgreSQL/bookings2.txt /e /p Everyone:f && node database/simulated-dataset/load-data/load_to_postgreSQL.js",
     "load-data-mongoDB": "cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-mongoDB/listings.txt /e /p Everyone:f && cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-mongoDB/bookings.txt /e /p Everyone:f && node database/simulated-dataset/load-data/load_to_mongoDB.js",
@@ -29,6 +29,7 @@
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",
     "minimist": "^1.2.5",
+    "mongoose": "^5.9.12",
     "morgan": "^1.9.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2",

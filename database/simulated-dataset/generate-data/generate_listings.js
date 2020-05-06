@@ -15,11 +15,9 @@ var generateListingName = () => {
   return str;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var generateListings = (numOfListings, db) => {
+var generateListings = (numOfListings) => {
   var weekend, pricePerNight, random, maxGuests;
-  var listingData = db === 'postgreSQL'
-    ? 'listingId,listingName,pricePerNight,weekend,weekendPrice,maxGuests,tax\r\n'
-    : '';
+  var listingData = 'listingId,listingName,pricePerNight,weekend,weekendPrice,maxGuests,tax\r\n';
  
   
   for (var i = 10001; i < 10001 + numOfListings; i++) {
@@ -33,11 +31,8 @@ var generateListings = (numOfListings, db) => {
     
     maxGuests = Math.floor(Math.random() * 3 + 2);
     
-    if (db === 'postgreSQL') {
-      listingData += `${i},"${listingName}",${pricePerNight},${weekend},1.1,${maxGuests},1.12\r\n`;
-    } else {
-      listingData += `{"listingId":${i},"listingName":"${listingName}","pricePerNight":${pricePerNight},"weekend":${weekend},"weekendPrice":1.1,"maxGuests":${maxGuests},"tax":1.12}\r\n`;
-    }
+    listingData += `${i},"${listingName}",${pricePerNight},${weekend},1.1,${maxGuests},1.12\r\n`;
+    
     
 
     if (i === 5010001) {

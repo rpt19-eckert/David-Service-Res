@@ -4,6 +4,5 @@ client/dist/bundle.js
 bundle.js
 __snapchats__
 https://rptfecservice.s3-sa-east-1.amazonaws.com/circleTwo.png
-database/simulated-dataset/data-postgreSQL
-database/simulated-dataset/data-mongoDB
+database/simulated-dataset/data-csv
 
