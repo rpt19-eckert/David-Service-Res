@@ -1,0 +1,11 @@
+const fs = require('fs');
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var appendFile = (db, file, data) => {
+    if (db === 'postgreSQL') {
+        fs.appendFileSync(__dirname + `/../data-postgreSQL/${file}.txt`, data);
+      } else {
+        fs.appendFileSync(__dirname + `/../data-mongoDB/${file}.txt`, data);
+      }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+module.exports = appendFile;

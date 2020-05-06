@@ -2,5 +2,5 @@ const generateListings = require('./generate_listings');
 const generateBookings = require('./generate_bookings');
 
 const num = 10000000;
-generateListings(num);
-generateBookings(num);
+generateListings(num, 'postgreSQL');
+generateBookings(num, 'postgreSQL');

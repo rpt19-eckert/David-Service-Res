@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const fs = require('fs');
+const appendFile = require('./appendFile');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var randomNum = (min, max) => {
     return min + Math.floor(Math.random() * ((max + 1) - min));
@@ -50,20 +50,25 @@ var generateBookingsForListing = (id, listingId, numOfBookings) => {
     return bookingData;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var generateBookings = (numOfListings) => {
-    var bookingsData = '';
+var generateBookings = (numOfListings, db) => {
+    var bookingsData = db === 'postgreSQL' 
+    ? 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n'
+    : '';
+    
     var id = 1;
     var numOfBookings = 0;
     for (var i = 1; i <= numOfListings; i++) {
+        if( !(i % 50000) ) console.log(i);
         numOfBookings = randomNum(2, 12);
         bookingsData += generateBookingsForListing(id, i + 10000, numOfBookings);
         id+= numOfBookings;
         if ( !(i % 750000) ) {
-            fs.appendFileSync(__dirname + '/bookings.txt', bookingsData);
+            appendFile(db, 'bookings', bookingsData);
             bookingsData = '';
         };
+        
     }
-    fs.appendFileSync(__dirname + '/bookings.txt', bookingsData);
+    appendFile(db, 'bookings', bookingsData);
     console.log(id - 1);
     return;
 };
