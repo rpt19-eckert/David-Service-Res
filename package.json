@@ -10,8 +10,8 @@
   "scripts": {
     "generate-data-postgreSQL": "node --max-old-space-size=5120 database/simulated-dataset/generate-data/generate_data_postgreSQL.js",
     "generate-data-mongoDB": "node --max-old-space-size=5120 database/simulated-dataset/generate-data/generate_data_mongoDB.js",
-    "load-data-postgreSQL": "cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-postgreSQL/listings.txt /e /p Everyone:f && node database/simulated-dataset/load-data/load_to_postgreSQL.js",
-    "load-data-mongoDB": "cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-postgreSQL/bookings.txt /e /p Everyone:f && node database/simulated-dataset/load-data/load_to_mongoDB.js",
+    "load-data-postgreSQL": "cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-postgreSQL/listings.txt /e /p Everyone:f && cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-postgreSQL/bookings1.txt /e /p Everyone:f && cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-postgreSQL/bookings2.txt /e /p Everyone:f && node database/simulated-dataset/load-data/load_to_postgreSQL.js",
+    "load-data-mongoDB": "cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-mongoDB/listings.txt /e /p Everyone:f && cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-mongoDB/bookings.txt /e /p Everyone:f && node database/simulated-dataset/load-data/load_to_mongoDB.js",
     "react-dev": "webpack -d --watch",
     "start": "nodemon server/index.js",
     "test": "jest"

@@ -51,6 +51,7 @@ var generateBookingsForListing = (id, listingId, numOfBookings) => {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var generateBookings = (numOfListings, db) => {
+    var fileName = 'bookings1';
     var bookingsData = db === 'postgreSQL' 
     ? 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n'
     : '';
@@ -59,16 +60,25 @@ var generateBookings = (numOfListings, db) => {
     var numOfBookings = 0;
     for (var i = 1; i <= numOfListings; i++) {
         if( !(i % 50000) ) console.log(i);
+        
         numOfBookings = randomNum(2, 12);
         bookingsData += generateBookingsForListing(id, i + 10000, numOfBookings);
         id+= numOfBookings;
-        if ( !(i % 750000) ) {
-            appendFile(db, 'bookings', bookingsData);
+        
+        if ( !(i % 500000) ) {
+            appendFile(db, fileName, bookingsData);
             bookingsData = '';
+            if (i === 5000000) {
+                fileName = 'bookings2';
+                bookingsData = db === 'postgreSQL' 
+                ? 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n'
+                : '';
+            }
         };
+
         
     }
-    appendFile(db, 'bookings', bookingsData);
+    appendFile(db, fileName, bookingsData);
     console.log(id - 1);
     return;
 };

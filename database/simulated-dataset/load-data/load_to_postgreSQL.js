@@ -61,11 +61,17 @@ client
 .then(() => {
     console.log('Populated listings table with data!');
     return client.query(
-        `COPY bookings FROM '${__dirname}\\..\\data-postgreSQL\\bookings.txt' WITH CSV HEADER`
+        `COPY bookings FROM '${__dirname}\\..\\data-postgreSQL\\bookings1.txt' WITH CSV HEADER`
     )
 })
 .then(() => {
-    console.log('Populated bookings table with data!');
+    console.log('Populated bookings table with data (1)!');
+    return client.query(
+        `COPY bookings FROM '${__dirname}\\..\\data-postgreSQL\\bookings2.txt' WITH CSV HEADER`
+    )
+})
+.then(() => {
+    console.log('Populated bookings table with data (2)!');
     client.end();
 })
 .catch(e => console.error(e.stack));
