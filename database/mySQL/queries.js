@@ -3,7 +3,7 @@ const _ = require('lodash');
 //==================================================================
 const getListing = (listingId) => {
   var queryStr = `
-  SELECT * FROM listingItems 
+  SELECT * FROM listings
   WHERE listingId = ${listingId} `;
   
   return db.queryAsync(queryStr);
@@ -28,7 +28,7 @@ const postBooking = (newBooking) => {
   values = values.substring(0, values.length - 1);
   
   var queryStr = `
-  INSERT INTO BOOKINGS (${columns})
+  INSERT INTO bookings (${columns})
   VALUES(${values}) `;
   
   return db.queryAsync(queryStr);
@@ -42,7 +42,7 @@ const updateBooking = (bookingId, updatedBooking, callback) => {
   keyVals = keyVals.substring(0, keyVals.length - 1);
   
   var queryStr = `
-  UPDATE BOOKINGS 
+  UPDATE bookings 
    SET ${keyVals}
    WHERE id = ${bookingId}
    `;
