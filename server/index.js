@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const query = require ('../database/queries');
+const query = require ('../database/postgreSQL/queries');
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -14,7 +14,7 @@ app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
   
   query.getListing(listingId)
-  .then(results => res.status(200).send(JSON.stringify(results)))
+  .then(results => res.status(200).send(JSON.stringify(results.rows[0])))
   .catch(err => res.status(404).send(`LISTING WITH ID OF ${listingId} NOT FOUND`))
 })
 
@@ -23,7 +23,7 @@ app.get('/bookings/:listingId', (req, res) => {
   var { listingId } = req.params;
   
   query.getListingBookings(listingId)
-  .then(results => res.status(200).send(JSON.stringify(results)))
+  .then(results => res.status(200).send(JSON.stringify(results.rows)))
   .catch(err => res.status(404).send(`BOOKINGS WITH LISTING OF ID ${listingId} NOT FOUND`))
 })
 
@@ -51,7 +51,7 @@ app.delete('/booking/delete/:bookingId', (req, res) => {
 
 
 
-var port = 3001;
+var port = 3000;
 
 app.listen(port, () => {
   console.log(`Server listening at ${port}`)

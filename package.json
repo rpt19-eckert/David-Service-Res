@@ -11,7 +11,7 @@
     "generate-data-csv": "node --max-old-space-size=5120 database/simulated-dataset/generate-data/generate_data_csv.js",
     "load-data-postgreSQL": "cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-csv/listings.txt /e /p Everyone:f && cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-csv/bookings1.txt /e /p Everyone:f && cacls C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-csv/bookings2.txt /e /p Everyone:f && node database/simulated-dataset/load-data/load_to_postgreSQL.js",
     "load-data-mongoDB": "mongoimport --db reservation_service --collection listings --type csv --file C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-csv/listings.txt --headerline && mongoimport --db reservation_service --collection bookings --type csv --file C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-csv/bookings1.txt --headerline && mongoimport --db reservation_service --collection bookings --type csv --file C:/Users/lirad/Documents/coding/hack-reactor/rpt19-system-design-capstone/David-Service-Res/database/simulated-dataset/data-csv/bookings2.txt --headerline",
-    "react-dev": "webpack -d --watch",
+    "webpack": "webpack -d --watch",
     "start": "nodemon server/index.js",
     "test": "jest"
   },
