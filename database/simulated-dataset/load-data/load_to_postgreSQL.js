@@ -43,7 +43,7 @@ client
             listingId int,
             nights int,
             month VARCHAR(4),
-            checkIN VARCHAR(10),
+            checkIn VARCHAR(10),
             checkOut VARCHAR(10),
             guests int,
             children int default 0,
@@ -68,10 +68,17 @@ client
     console.log('Populated bookings table with data (1)!');
     return client.query(
         `COPY bookings FROM '${__dirname}\\..\\data-csv\\bookings2.txt' WITH CSV HEADER`
-    )
+    );
 })
 .then(() => {
     console.log('Populated bookings table with data (2)!');
+    return client.query(
+        `CREATE INDEX bookings_listingId on bookings(listingId)`
+    );
+})
+.then(() => {
+    console.log('Created bookings_listingId index!');
     client.end();
+
 })
 .catch(e => console.error(e.stack));

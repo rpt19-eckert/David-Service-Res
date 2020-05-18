@@ -24,16 +24,23 @@ app.get('/bookings/:listingId', (req, res) => {
   
   query.getListingBookings(listingId)
   .then(results => res.status(200).send(JSON.stringify(results.rows)))
-  .catch(err => res.status(404).send(`BOOKINGS WITH LISTING OF ID ${listingId} NOT FOUND`))
+  .catch(err => {
+    console.log(err.stack)
+    res.status(404).send(`BOOKINGS WITH LISTING OF ID ${listingId} NOT FOUND`);
+  })
 })
 
 app.post('/booking/new', (req, res) => {  
   query.postBooking(req.body)
   .then(() => res.status(200).send('CREATED NEW BOOKING!'))
-  .catch(err => res.status(404).send(`UNABLE TO POST NEW BOOKING`))
+  .catch(err => {
+    console.log(err.stack);
+    res.status(404).send(`UNABLE TO POST NEW BOOKING`);
+  })
 })
 
 app.put('/booking/update/:bookingId', (req, res) => {  
+  console.log('comes through here');
   var { bookingId } = req.params; 
 
   query.updateBooking(bookingId, req.body)
