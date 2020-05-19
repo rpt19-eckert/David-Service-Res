@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const query = require ('../database/postgreSQL/queries');
+const port = 3000;
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -21,7 +22,7 @@ app.get('/listing/:listingId', (req, res) => {
 
 app.get('/bookings/:listingId', (req, res) => {  
   var { listingId } = req.params;
-  
+  console.log('* listingId', listingId)
   query.getListingBookings(listingId)
   .then(results => res.status(200).send(JSON.stringify(results.rows)))
   .catch(err => {
@@ -40,7 +41,6 @@ app.post('/booking/new', (req, res) => {
 })
 
 app.put('/booking/update/:bookingId', (req, res) => {  
-  console.log('comes through here');
   var { bookingId } = req.params; 
 
   query.updateBooking(bookingId, req.body)
@@ -56,14 +56,9 @@ app.delete('/booking/delete/:bookingId', (req, res) => {
   .catch(err => res.status(404).end(`UNABLE TO DELETE BOOKING ${bookingId}`))
 })
 
-
-
-var port = 3000;
-
 app.listen(port, () => {
-  console.log(`Server listening at ${port}`)
+  console.log(`\n        !!SERVER!! \n||||//   vvvvvvvv   \\\\|||||\n|||//    | ${port} |    \\\\||||\n||( [====| ^__^ |====] )|||\n|||\\\\    |______|    //||||\n||||\\\\  _|      |_  //|||||\n`)
 })
-
 
 module.exports = app;
 

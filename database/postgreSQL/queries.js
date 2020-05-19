@@ -1,12 +1,13 @@
 const pool = require('./');
 
 const getListing = (listingId) => {
-    var query = `SELECT * FROM listings WHERE listingId = ${listingId}`;
+    var query = `SELECT * FROM listings WHERE "listingId" = ${listingId}`;
     return pool.query(query);
 }
 
 const getListingBookings = (listingId) => {
-    var query = `SELECT * FROM bookings WHERE listingId = ${listingId}`;
+    console.log('* inside of query')
+    var query = `SELECT * FROM bookings WHERE "listingId" = ${listingId}`;
     return pool.query(query);
 }
 
@@ -17,7 +18,7 @@ const postBooking = (newBooking) => {
     }
     
     const query = {
-        text: 'INSERT INTO bookings(listingId, nights, month, checkIn, checkOut, guests, children, infants) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
+        text: 'INSERT INTO bookings("listingId", nights, month, "checkIn", "checkOut", guests, children, infants) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
         values
     }
 
