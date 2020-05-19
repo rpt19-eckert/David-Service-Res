@@ -10,6 +10,7 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
+app.use('/:id', express.static(__dirname + '/../client/dist'));
 
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;

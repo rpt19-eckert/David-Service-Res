@@ -2,9 +2,7 @@ import CalendarBoard from './CalendarBoard.jsx';
 import GuestsDisplay from  './GuestsDisplay.jsx';
 import PriceBreakup from './PriceBreakup.jsx';
 import { getMonthDays, getFullYear, getMonthFirstDay, createMonth, getMonth, iterateOverDataArray, calculateNumOfNights, getDatesRange } from './helperFunc.js';
-import $ from 'jquery';
 import '../dist/style.css'
-
 
 class Reservation extends React.Component {
   constructor (props) {
@@ -51,9 +49,8 @@ class Reservation extends React.Component {
     this.onDecreaseOfAdults = this.onDecreaseOfAdults.bind(this);
     this.onHandleCloseGuestsDisplay = this.onHandleCloseGuestsDisplay.bind(this);
     this.getReviews = this.getReviews.bind(this);
-
-
   }
+
   componentDidMount() {
     var currentYear = +(new Date().getFullYear());
     var currentMonth = +(new Date().getMonth()) + 1;
@@ -67,25 +64,72 @@ class Reservation extends React.Component {
       grid,
       monthNumber: currentMonth
     })
-    var listingId = 10001;
-    var windowUrlString = window.location.href;
-    if (windowUrlString[windowUrlString.length - 1] === '/') {
-      listingId = 10001
-    } else {
-      listingId = Number(windowUrlString.slice(-5));
-    }
-    this.getListingInfoFromServer('http://localhost:3000/listing', listingId);
-    this.getBookedDates('http://localhost:3000/bookings', listingId);
-    this.getReviews('http://localhost:3004/averageScore' + listingId);
+    var windowURLId = window.location.pathname.split('/')[1];
+    var listingId = windowURLId === '' ? 10001 : windowURLId;
+    this.getListingInfoFromServer(`http://localhost:3000/listing/${listingId}`);
+    this.getBookedDates(`http://localhost:3000/bookings/${listingId}`);
+    this.getReviews(`http://localhost:3004/averageScore${listingId}`);
   }
-
+/////////////////////////////////////////////////////
+  getListingInfoFromServer (url) {
+    $.ajax({
+      method: 'GET',
+      url,
+      success: (data) => {
+        console.log('data', data)
+        var parsedData = JSON.parse(data);
+        var {listingName, pricePerNight:price, maxGuests, weekend:weekedBoolean, tax } = parsedData;
+        this.setState({ listingName, price, maxGuests, tax })
+      },
+      error: (err) => {
+        console.log('error', err);
+      }
+    })
+  }
+/////////////////////////////////////////////////////
+  getBookedDates (url) {
+    $.ajax({
+      method: 'GET',
+      url,
+      success: (data) => {
+        var parsedData = JSON.parse(data);
+        console.log('parsedData', parsedData)
+        var bookedDatesArray = iterateOverDataArray(parsedData);
+        this.setState({
+          bookedDates: bookedDatesArray
+        })
+      },
+      error: (err) => {
+        console.log('error', err);
+      }
+    })
+  }
+/////////////////////////////////////////////////////
+  getReviews(url) {
+    $.ajax({
+      method: 'GET',
+      url,
+      success: (results) => {
+        var removeComma = results.split(',');
+        console.log('removeComma', removeComma)
+        this.setState({
+          reviews: removeComma
+        })
+      },
+      error: (err) => {
+        console.log('error', err);
+      }
+    })
+  }
+/////////////////////////////////////////////////////
   onClickCheckinButton () {
      this.setState({
        toggleCheckinToDisplayCalendar: !this.state.toggleCheckinToDisplayCalendar
      })
   }
+/////////////////////////////////////////////////////
   //Calendar Component methods
-   goToNextMonth () {
+  goToNextMonth () {
     var currentYear = this.state.currentYear;
     var currentMonth = this.state.monthNumber
     var newMonth = currentMonth +1;
@@ -100,6 +144,7 @@ class Reservation extends React.Component {
       monthNumber: newMonth
     })
   }
+/////////////////////////////////////////////////////
   goToPreviousMonth () {
     console.log('Previous')
    var currentYear = this.state.currentYear;
@@ -113,12 +158,13 @@ class Reservation extends React.Component {
    var monthName = getMonth(newMonth)
    var grid = createMonth(days, monthFirstDay)
    this.setState({
-     grid: grid,
-     currentYear: currentYear,
-     monthName: monthName,
+     grid,
+     currentYear,
+     monthName,
      monthNumber: newMonth
    })
  }
+/////////////////////////////////////////////////////
  onDayClick(e) {
    console.log('onDayClick', e.target.id)
   var checkInDate = e.target.id;
@@ -144,111 +190,48 @@ class Reservation extends React.Component {
   }
 
  }
+/////////////////////////////////////////////////////
+  displayCheckOutDate (e) {
+    console.log('went in displayCheckOutDate')
+    var checkOutDate = e.target.id;
+    console.log('checkOutDate', checkOutDate)
+    if (this.state.checkin) {
+    var checkInDate = this.state.checkin;
+    console.log('checkInDate', checkInDate)
+    var checkIn = checkInDate.slice(5)
+    var checkInFormatted = checkIn.replace('/', '-');
+    var numOfNights = calculateNumOfNights(checkInFormatted, checkOutDate);
 
- displayCheckOutDate (e) {
- console.log('went in displayCheckOutDate')
-  var checkOutDate = e.target.id;
-  console.log('checkOutDate', checkOutDate)
-  if (this.state.checkin) {
-  var checkInDate = this.state.checkin;
-  console.log('checkInDate', checkInDate)
-  var checkIn = checkInDate.slice(5)
-  var checkInFormatted = checkIn.replace('/', '-');
-  var numOfNights = calculateNumOfNights(checkInFormatted, checkOutDate);
-
-  var newBookedRangeOfDates = getDatesRange(checkInFormatted, checkOutDate);
-
-  this.setState({
-    numOfNights: numOfNights,
-    newBookedDateRange: newBookedRangeOfDates
-  })
-  }
-  var newStr = checkOutDate.replace('-', '/');
-  newStr = '2020/' + newStr;
-
+    var newBookedRangeOfDates = getDatesRange(checkInFormatted, checkOutDate);
 
     this.setState({
-      checkout: newStr,
-      toggleCheckinToDisplayCalendar: !this.state.toggleCheckinToDisplayCalendar,
-      displayPriceBreakup: true
+      numOfNights: numOfNights,
+      newBookedDateRange: newBookedRangeOfDates
     })
+    }
+    var newStr = checkOutDate.replace('-', '/');
+    newStr = '2020/' + newStr;
 
 
- }
- clearDatesButton () {
-   console.log('clear Dates')
-
-   this.setState({
-     checkin: null,
-     checkout: null,
-     timesToggledonCheckinAndCheckOut: 0,
-     numOfNights: null,
-     displayCheckOut: true,
-     displayPriceBreakup: false
-   })
- }
-
- getReviews(endPoint) {
-   $.ajax({
-     method: 'GET',
-     url: endPoint,
-     success: (results) => {
-       var removeComma = results.split(',');
-       console.log('removeComma', removeComma)
-       this.setState({
-         reviews: removeComma
-       })
-     },
-     error: (err) => {
-       console.log('error', err);
-     }
-   })
+      this.setState({
+        checkout: newStr,
+        toggleCheckinToDisplayCalendar: !this.state.toggleCheckinToDisplayCalendar,
+        displayPriceBreakup: true
+      })
+  }
+/////////////////////////////////////////////////////
+  clearDatesButton () {
+    console.log('clear Dates')
+    this.setState({
+      checkin: null,
+      checkout: null,
+      timesToggledonCheckinAndCheckOut: 0,
+      numOfNights: null,
+      displayCheckOut: true,
+      displayPriceBreakup: false
+    })
  }
 /////////////////////////////////////////////////////
- getListingInfoFromServer (url, id) {
-  $.ajax({
-    method: 'GET',
-    url: `${url}/${id}`,
-    success: (data) => {
-      console.log('data', data)
-      var parsedData = JSON.parse(data);
-      var listingName = parsedData.listingName;
-      var price = parsedData.pricePerNight;
-      var maxGuests = parsedData.maxGuests;
-      var weekendBoolean = parsedData.weekend;
-      var tax = parsedData.tax;
-      this.setState({
-        listingName,
-        price,
-        maxGuests,
-        tax
-      })
-    },
-    error: (err) => {
-      console.log('error', err);
-    }
-  })
-
- }
-
- getBookedDates (url, id) {
-  $.ajax({
-    method: 'GET',
-    url: `${url}/${id}`,
-    success: (data) => {
-      var parsedData = JSON.parse(data);
-      console.log('parsedData', parsedData)
-      var bookedDatesArray = iterateOverDataArray(parsedData);
-      this.setState({
-        bookedDates: bookedDatesArray
-      })
-    },
-    error: (err) => {
-      console.log('error', err);
-    }
-  })
-
- }
  onHandleGuestsClick () {
    if (this.state.toggleGuestsMenuCount === 0) {
    this.setState({
@@ -262,20 +245,21 @@ class Reservation extends React.Component {
     })
   }
  }
-
+/////////////////////////////////////////////////////
  onIncreaseOfAdults () {
    console.log('clicked to increase')
    this.setState({
      guests: this.state.guests+1
    })
  }
-
+/////////////////////////////////////////////////////
  onDecreaseOfAdults () {
   console.log('clicked to decrease')
   this.setState({
     guests: this.state.guests-1
   })
  }
+/////////////////////////////////////////////////////
  onHandleCloseGuestsDisplay () {
    this.setState({
      displayGuestsMenu: false,
