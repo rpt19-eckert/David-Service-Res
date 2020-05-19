@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const query = require ('../database/postgreSQL/queries');
+const query = require ('../database/queries');
 const port = 3000;
 
 app.use(cors());
