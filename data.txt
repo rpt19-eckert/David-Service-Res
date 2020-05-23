@@ -1,5 +1,0 @@
-listingId,listingName,pricePerNight,weekend,weekendPrice,maxGuests,tax
-10001,"Super_Cute_Retro_Airstream",129.00,1,1.1,4,1.12
-10002,"Redundant_Driver_Strategic_house",115.00,0,1.1,3,1.12
-10003,"Multibyte_Program_Opensource_house",129.00,0,1.1,3,1.12
-10004,"Neural_Transmitter_Magnetic_house",168.00,1,1.1,2,1.12

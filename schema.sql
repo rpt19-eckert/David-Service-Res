@@ -1,4 +1,3 @@
-
 DROP DATABASE IF EXISTS reservation_service;
 
 CREATE DATABASE reservation_service;
@@ -15,7 +14,6 @@ CREATE TABLE listingItems (
   maxGuests int NOT NULL,
   tax DECIMAL(3, 2) NOT NULL,
   PRIMARY KEY(id)
-
 );
 
 CREATE TABLE bookings (

@@ -60,10 +60,6 @@ export var getMonthDays = (month, year) => {
       : 31;
 }
 
-
-
-
-
 export const getMonthFirstDay = (month, currentYear) => {
   var value;
   value = Math.abs(new Date(`${currentYear}-${zeroPad(month, 2)}`).getDay() + 1);
@@ -139,6 +135,7 @@ export const getDatesRange = (checkIn, checkOut) => {
 }
 
 export const iterateOverDataArray = (data) => {
+  console.log('data', data);
   var storage = [];
   for (var i = 0; i < data.length; i++) {
     var eachObj = data[i];

@@ -24,12 +24,12 @@ client
 
     return client.query(
         `CREATE TABLE listings (
-            listingId SERIAL NOT NULL PRIMARY KEY,
-            listingName VARCHAR(100),
-            pricePerNight DECIMAL(5, 2) NOT NULL,
+            "listingId" SERIAL NOT NULL PRIMARY KEY,
+            "listingName" VARCHAR(100),
+            "pricePerNight" DECIMAL(5, 2) NOT NULL,
             weekend integer NOT NULL default 0,
-            weekendPrice DECIMAL(3, 2) NOT NULL,
-            maxGuests int NOT NULL,
+            "weekendPrice" DECIMAL(3, 2) NOT NULL,
+            "maxGuests" int NOT NULL,
             tax DECIMAL(3, 2) NOT NULL
         )`
     );
@@ -40,11 +40,11 @@ client
     return client.query(
         `CREATE TABLE bookings (
             id SERIAL NOT NULL PRIMARY KEY,
-            listingId int,
+            "listingId" int,
             nights int,
             month VARCHAR(4),
-            checkIN VARCHAR(10),
-            checkOut VARCHAR(10),
+            "checkIn" VARCHAR(10),
+            "checkOut" VARCHAR(10),
             guests int,
             children int default 0,
             infants int default 0
@@ -68,10 +68,17 @@ client
     console.log('Populated bookings table with data (1)!');
     return client.query(
         `COPY bookings FROM '${__dirname}\\..\\data-csv\\bookings2.txt' WITH CSV HEADER`
-    )
+    );
 })
 .then(() => {
     console.log('Populated bookings table with data (2)!');
+    return client.query(
+        `CREATE INDEX bookings_listingId on bookings("listingId")`
+    );
+})
+.then(() => {
+    console.log('Created bookings_listingId index!');
     client.end();
+
 })
 .catch(e => console.error(e.stack));
