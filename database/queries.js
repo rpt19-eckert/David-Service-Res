@@ -6,7 +6,7 @@ const getListing = (listingId) => {
 }
 
 const getListingBookings = (listingId) => {
-    console.log('* inside of query')
+    //console.log('* inside of query')
     var query = `SELECT * FROM bookings WHERE "listingId" = ${listingId}`;
     return pool.query(query);
 }

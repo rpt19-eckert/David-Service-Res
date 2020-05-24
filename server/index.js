@@ -4,10 +4,10 @@ const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const query = require ('../database/queries');
-const port = 3000;
+const port = 3001;
 
 app.use(cors());
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 app.use('/:id', express.static(__dirname + '/../client/dist'));
@@ -23,11 +23,11 @@ app.get('/listing/:listingId', (req, res) => {
 
 app.get('/bookings/:listingId', (req, res) => {  
   var { listingId } = req.params;
-  console.log('* listingId', listingId)
+  //console.log('* listingId', listingId)
   query.getListingBookings(listingId)
   .then(results => res.status(200).send(JSON.stringify(results.rows)))
   .catch(err => {
-    console.log(err.stack)
+    //sconsole.log(err.stack)
     res.status(404).send(`BOOKINGS WITH LISTING OF ID ${listingId} NOT FOUND`);
   })
 })
