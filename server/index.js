@@ -9,7 +9,7 @@ const port = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
-app.use('/:id', express.static(__dirname + '/../client/dist'));
+app.use('/:id', express.static(__dirname + '/../client/dist')); //this one is when not using proxy, but just requesting this service from the browser
 
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
@@ -43,7 +43,10 @@ app.put('/booking/update/:bookingId', (req, res) => {
 
   query.updateBooking(bookingId, req.body)
   .then(() => res.status(202).end('UPDATED BOOKING!'))
-  .catch(err => res.status(404).end(`UNABLE TO UPDATE BOOKING ${bookingId}`))
+  .catch(err => {
+    console.log(err)
+    res.status(404).end(`UNABLE TO UPDATE BOOKING ${bookingId}`);
+  })
 })
 
 app.delete('/booking/delete/:bookingId', (req, res) => {  

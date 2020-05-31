@@ -66,9 +66,10 @@ class Reservation extends React.Component {
     })
     var windowURLId = window.location.pathname.split('/')[1];
     var listingId = windowURLId === '' ? 10001 : windowURLId;
-    this.getListingInfoFromServer(`http://localhost:3000/listing/${listingId}`);
-    this.getBookedDates(`http://localhost:3000/bookings/${listingId}`);
-    this.getReviews(`http://localhost:3004/averageScore${listingId}`);
+    console.log('listingId', listingId)
+    this.getListingInfoFromServer(`http://localhost:3001/listing/${listingId}`);
+    this.getBookedDates(`http://localhost:3001/bookings/${listingId}`);
+    //this.getReviews(`http://localhost:3004/averageScore${listingId}`);
   }
 /////////////////////////////////////////////////////
   getListingInfoFromServer (url) {
@@ -76,7 +77,6 @@ class Reservation extends React.Component {
       method: 'GET',
       url,
       success: (data) => {
-        console.log('data', data)
         var parsedData = JSON.parse(data);
         var {listingName, pricePerNight:price, maxGuests, weekend:weekedBoolean, tax } = parsedData;
         this.setState({ listingName, price, maxGuests, tax })
@@ -93,7 +93,6 @@ class Reservation extends React.Component {
       url,
       success: (data) => {
         var parsedData = JSON.parse(data);
-        console.log('parsedData', parsedData)
         var bookedDatesArray = iterateOverDataArray(parsedData);
         this.setState({
           bookedDates: bookedDatesArray
@@ -111,7 +110,6 @@ class Reservation extends React.Component {
       url,
       success: (results) => {
         var removeComma = results.split(',');
-        console.log('removeComma', removeComma)
         this.setState({
           reviews: removeComma
         })

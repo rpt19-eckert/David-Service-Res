@@ -11,6 +11,6 @@ export let options = {
 
 export default function() {
     for(var id = 9000000; id < 9600000; id++) {
-        http.get(http.url`http://localhost:3001/listing/${id}`)
+        http.get(http.url`http://localhost:3001/bookings/${id}`)
     }
 }
