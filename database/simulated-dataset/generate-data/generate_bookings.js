@@ -63,7 +63,7 @@ var generateBookings = (numOfListings) => {
         bookingsData += generateBookingsForListing(id, i + 10000, numOfBookings);
         id+= numOfBookings;
         
-        if ( !(i % 100000) ) {
+        if ( !(i % 10000) ) {
             console.log('writing to bookings file');
             appendFile(fileName, bookingsData);
             bookingsData = '';
