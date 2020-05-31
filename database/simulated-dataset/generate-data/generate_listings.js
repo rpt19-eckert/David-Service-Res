@@ -35,7 +35,7 @@ var generateListings = (numOfListings) => {
     
     
 
-    if (!(i % 500000)) {
+    if (!(i % 250000)) {
       console.log('writing to listings file');
       appendFile('listings', listingData);
       listingData = '';
