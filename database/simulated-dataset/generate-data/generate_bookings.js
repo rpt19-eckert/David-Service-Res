@@ -67,8 +67,16 @@ var generateBookings = (numOfListings) => {
             console.log('writing to bookings file');
             appendFile(fileName, bookingsData);
             bookingsData = '';
-            if (i === 5000000) {
+            if (i === 2500000) {
                 fileName = 'bookings2';
+                bookingsData = 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n';
+            }
+            if (i === 5000000) {
+                fileName = 'bookings3';
+                bookingsData = 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n';
+            }
+            if (i === 7500000) {
+                fileName = 'bookings4';
                 bookingsData = 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n';
             }
         };
