@@ -75,7 +75,6 @@ var generateBookings = (numOfListings) => {
         
     }
     appendFile(db, fileName, bookingsData);
-    console.log(id - 1);
     return;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
