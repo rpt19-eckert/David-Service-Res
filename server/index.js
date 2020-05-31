@@ -1,16 +1,15 @@
+const nr = require('newrelic');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const query = require ('../database/queries');
-const port = 3000;
+const port = 3001;
 
 app.use(cors());
-app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
-app.use('/:id', express.static(__dirname + '/../client/dist'));
+app.use('/:id', express.static(__dirname + '/../client/dist')); //this one is when not using proxy, but just requesting this service from the browser
 
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
@@ -23,11 +22,9 @@ app.get('/listing/:listingId', (req, res) => {
 
 app.get('/bookings/:listingId', (req, res) => {  
   var { listingId } = req.params;
-  console.log('* listingId', listingId)
   query.getListingBookings(listingId)
   .then(results => res.status(200).send(JSON.stringify(results.rows)))
   .catch(err => {
-    console.log(err.stack)
     res.status(404).send(`BOOKINGS WITH LISTING OF ID ${listingId} NOT FOUND`);
   })
 })
@@ -46,7 +43,10 @@ app.put('/booking/update/:bookingId', (req, res) => {
 
   query.updateBooking(bookingId, req.body)
   .then(() => res.status(202).end('UPDATED BOOKING!'))
-  .catch(err => res.status(404).end(`UNABLE TO UPDATE BOOKING ${bookingId}`))
+  .catch(err => {
+    console.log(err)
+    res.status(404).end(`UNABLE TO UPDATE BOOKING ${bookingId}`);
+  })
 })
 
 app.delete('/booking/delete/:bookingId', (req, res) => {  

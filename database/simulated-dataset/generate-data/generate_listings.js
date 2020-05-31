@@ -21,7 +21,7 @@ var generateListings = (numOfListings) => {
  
   
   for (var i = 10001; i < 10001 + numOfListings; i++) {
-    if( !((i - 10000) % 50000) ) console.log(i - 10000);
+    if( !((i - 10000) % 50000) )
     listingName = generateListingName();
     
     pricePerNight = faker.commerce.price(100, 180.00, 2); 

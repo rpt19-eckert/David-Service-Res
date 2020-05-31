@@ -6,7 +6,6 @@ const getListing = (listingId) => {
 }
 
 const getListingBookings = (listingId) => {
-    console.log('* inside of query')
     var query = `SELECT * FROM bookings WHERE "listingId" = ${listingId}`;
     return pool.query(query);
 }
@@ -29,7 +28,7 @@ const updateBooking = (bookingId, updates) => {
     var keyVals = '';
     for(var key in updates) {
         var update = typeof updates[key] === 'string' ? `'${updates[key]}'`: updates[key];
-        keyVals+= `${key} = ${update},`;
+        keyVals+= `"${key}" = ${update},`;
     }
     keyVals = keyVals.substring(0, keyVals.length - 1);
 
