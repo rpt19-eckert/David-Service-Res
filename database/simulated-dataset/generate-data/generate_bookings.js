@@ -54,7 +54,7 @@ var generateBookings = (numOfListings) => {
     var fileName = 'bookings3';
     var bookingsData = 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n';
     
-    var id = 1;
+    var id = 34944081;
     var numOfBookings = 0;
     for (var i = 5000001; i <= 7500000; i++) {
         if( !(i % 50000) ) console.log(i);
