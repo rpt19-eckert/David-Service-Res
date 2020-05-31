@@ -64,7 +64,7 @@ var generateBookings = (numOfListings) => {
         id+= numOfBookings;
         
         if ( !(i % 500000) ) {
-            appendFile(db, fileName, bookingsData);
+            appendFile(fileName, bookingsData);
             bookingsData = '';
             if (i === 5000000) {
                 fileName = 'bookings2';
@@ -74,7 +74,7 @@ var generateBookings = (numOfListings) => {
 
         
     }
-    appendFile(db, fileName, bookingsData);
+    appendFile(fileName, bookingsData);
     return;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
