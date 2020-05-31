@@ -51,12 +51,12 @@ var generateBookingsForListing = (id, listingId, numOfBookings) => {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var generateBookings = (numOfListings) => {
-    var fileName = 'bookings1';
+    var fileName = 'bookings3';
     var bookingsData = 'id,listingId,nights,month,checkIn,checkOut,guests,children,infants\r\n';
     
     var id = 1;
     var numOfBookings = 0;
-    for (var i = 1; i <= numOfListings; i++) {
+    for (var i = 5000001; i <= 7500000; i++) {
         if( !(i % 50000) ) console.log(i);
         
         numOfBookings = randomNum(2, 12);
