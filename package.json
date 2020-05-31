@@ -8,7 +8,8 @@
     "node": "^12.16.13"
   },
   "scripts": {
-    "generate-data-csv": "node --max-old-space-size=5120 database/simulated-dataset/generate-data/generate_data_csv.js",
+    "generate-listings-csv": "node --max-old-space-size=5120 database/simulated-dataset/generate-data/generate_listings_csv.js",
+    "generate-bookings-csv": "node --max-old-space-size=5120 database/simulated-dataset/generate-data/generate_bookings_csv.js",
     "load-data-postgreSQL": "node database/simulated-dataset/load-data/load_to_postgreSQL.js",
     "webpack": "webpack -d --watch",
     "start": "nodemon server/index.js",

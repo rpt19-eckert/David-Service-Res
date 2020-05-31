@@ -53,32 +53,32 @@ client
 })
 .then(() => {
     console.log('Created table bookings');
-    
-    return client.query(
-        `COPY listings FROM '${__dirname}/../data-csv/listings.txt' WITH CSV HEADER`
-    )
-})
-.then(() => {
-    console.log('Populated listings table with data!');
-    return client.query(
-        `COPY bookings FROM '${__dirname}/../data-csv/bookings1.txt' WITH CSV HEADER`
-    )
-})
-.then(() => {
-    console.log('Populated bookings table with data (1)!');
-    return client.query(
-        `COPY bookings FROM '${__dirname}/../data-csv/bookings2.txt' WITH CSV HEADER`
-    );
-})
-.then(() => {
-    console.log('Populated bookings table with data (2)!');
-    return client.query(
-        `CREATE INDEX bookings_listingId on bookings("listingId")`
-    );
-})
-.then(() => {
-    console.log('Created bookings_listingId index!');
     client.end();
-
+    // return client.query(
+    //     `COPY listings FROM '${__dirname}/../data-csv/listings.txt' WITH CSV HEADER`
+    // )
 })
+// .then(() => {
+//     console.log('Populated listings table with data!');
+//     return client.query(
+//         `COPY bookings FROM '${__dirname}/../data-csv/bookings1.txt' WITH CSV HEADER`
+//     )
+// })
+// .then(() => {
+//     console.log('Populated bookings table with data (1)!');
+//     return client.query(
+//         `COPY bookings FROM '${__dirname}/../data-csv/bookings2.txt' WITH CSV HEADER`
+//     );
+// })
+// .then(() => {
+//     console.log('Populated bookings table with data (2)!');
+//     return client.query(
+//         `CREATE INDEX bookings_listingId on bookings("listingId")`
+//     );
+// })
+// .then(() => {
+//     console.log('Created bookings_listingId index!');
+//     client.end();
+
+// })
 .catch(e => console.error(e.stack));
