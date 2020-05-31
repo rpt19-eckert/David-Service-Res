@@ -44,7 +44,7 @@ var generateListings = (numOfListings) => {
   }
 
   appendFile('listings', listingData);
-
+  console.log('finished writing to listings')
   return;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

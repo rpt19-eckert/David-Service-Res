@@ -63,7 +63,8 @@ var generateBookings = (numOfListings) => {
         bookingsData += generateBookingsForListing(id, i + 10000, numOfBookings);
         id+= numOfBookings;
         
-        if ( !(i % 500000) ) {
+        if ( !(i % 100000) ) {
+            console.log('writing to bookings file');
             appendFile(fileName, bookingsData);
             bookingsData = '';
             if (i === 5000000) {
@@ -74,7 +75,10 @@ var generateBookings = (numOfListings) => {
 
         
     }
+    
     appendFile(fileName, bookingsData);
+    console.log('finished writing to bookings')
+
     return;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
