@@ -3,7 +3,6 @@ import GuestsDisplay from  './GuestsDisplay.jsx';
 import PriceBreakup from './PriceBreakup.jsx';
 import { getMonthDays, getFullYear, getMonthFirstDay, createMonth, getMonth, iterateOverDataArray, calculateNumOfNights, getDatesRange } from './helperFunc.js';
 import '../dist/style.css';
-const host = '13.56.189.39';
 
 class Reservation extends React.Component {
   constructor (props) {
