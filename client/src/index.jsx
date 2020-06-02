@@ -2,7 +2,8 @@ import CalendarBoard from './CalendarBoard.jsx';
 import GuestsDisplay from  './GuestsDisplay.jsx';
 import PriceBreakup from './PriceBreakup.jsx';
 import { getMonthDays, getFullYear, getMonthFirstDay, createMonth, getMonth, iterateOverDataArray, calculateNumOfNights, getDatesRange } from './helperFunc.js';
-import '../dist/style.css'
+import '../dist/style.css';
+const host = 'ec2-13-56-189-39.us-west-1.compute.amazonaws.com';
 
 class Reservation extends React.Component {
   constructor (props) {
@@ -67,8 +68,8 @@ class Reservation extends React.Component {
     var windowURLId = window.location.pathname.split('/')[1];
     var listingId = windowURLId === '' ? 10001 : windowURLId;
     console.log('listingId', listingId)
-    this.getListingInfoFromServer(`http://localhost:3001/listing/${listingId}`);
-    this.getBookedDates(`http://localhost:3001/bookings/${listingId}`);
+    this.getListingInfoFromServer(`http://${host}:3001/listing/${listingId}`);
+    this.getBookedDates(`http://${host}:3001/bookings/${listingId}`);
     //this.getReviews(`http://localhost:3004/averageScore${listingId}`);
   }
 /////////////////////////////////////////////////////

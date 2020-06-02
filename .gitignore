@@ -6,4 +6,5 @@ __snapchats__
 https://rptfecservice.s3-sa-east-1.amazonaws.com/circleTwo.png
 database/simulated-dataset/data-csv/*
 !database/simulated-dataset/data-csv/.gitkeep
+newrelic.js
 
