@@ -16,7 +16,9 @@ app.get('/listing/:listingId', (req, res) => {
   
   query.getListing(listingId)
   .then(results => res.status(200).send(JSON.stringify(results.rows[0])))
-  .catch(err => res.status(404).send(`LISTING WITH ID OF ${listingId} NOT FOUND`))
+  .catch(err => {
+    console.log(err);
+    res.status(404).send(`LISTING WITH ID OF ${listingId} NOT FOUND`);
 })
 
 
