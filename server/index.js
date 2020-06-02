@@ -19,6 +19,7 @@ app.get('/listing/:listingId', (req, res) => {
   .catch(err => {
     console.log(err);
     res.status(404).send(`LISTING WITH ID OF ${listingId} NOT FOUND`);
+  })
 })
 
 
