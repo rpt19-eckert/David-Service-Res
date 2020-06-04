@@ -67,8 +67,8 @@ class Reservation extends React.Component {
     var windowURLId = window.location.pathname.split('/')[1];
     var listingId = windowURLId === '' ? 10001 : windowURLId;
     console.log('listingId', listingId)
-    this.getListingInfoFromServer(`http://13.56.189.39:3001/listing/${listingId}/`);
-    this.getBookedDates(`http://13.56.189.39:3001/bookings/${listingId}/`);
+    this.getListingInfoFromServer(`http://13.56.94.204:3001/listing/${listingId}/`);
+    this.getBookedDates(`http://13.56.94.204:3001/bookings/${listingId}/`);
     //this.getReviews(`http://localhost:3004/averageScore${listingId}`);
   }
 /////////////////////////////////////////////////////
