@@ -14,7 +14,7 @@ app.use('/:id', express.static(__dirname + '/../client/dist')); //this one is wh
 
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
-  console.log('hits listing id')
+  console.log('hits listing id: ', listingId);
   query.getListing(listingId)
   .then(results => res.status(200).send(JSON.stringify(results.rows[0])))
   .catch(err => {
