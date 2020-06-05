@@ -11,9 +11,10 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 app.use('/:id', express.static(__dirname + '/../client/dist')); //this one is when not using proxy, but just requesting this service from the browser
 
+
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
-  
+  console.log('hits listing id')
   query.getListing(listingId)
   .then(results => res.status(200).send(JSON.stringify(results.rows[0])))
   .catch(err => {
