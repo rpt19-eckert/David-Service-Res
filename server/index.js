@@ -14,13 +14,9 @@ app.use('/:id', express.static(__dirname + '/../client/dist')); //this one is wh
 
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
-  console.log('hits listing id: ', listingId);
   query.getListing(listingId)
   .then(results => res.status(200).send(JSON.stringify(results.rows[0])))
-  .catch(err => {
-    console.log(err);
-    res.status(404).send(`LISTING WITH ID OF ${listingId} NOT FOUND`);
-  })
+  .catch(err => res.status(404).send(`LISTING WITH ID OF ${listingId} NOT FOUND`))
 })
 
 
@@ -28,18 +24,13 @@ app.get('/bookings/:listingId', (req, res) => {
   var { listingId } = req.params;
   query.getListingBookings(listingId)
   .then(results => res.status(200).send(JSON.stringify(results.rows)))
-  .catch(err => {
-    res.status(404).send(`BOOKINGS WITH LISTING OF ID ${listingId} NOT FOUND`);
-  })
+  .catch(err => res.status(404).send(`BOOKINGS WITH LISTING OF ID ${listingId} NOT FOUND`))
 })
 
 app.post('/booking/new', (req, res) => {  
   query.postBooking(req.body)
   .then(() => res.status(200).send('CREATED NEW BOOKING!'))
-  .catch(err => {
-    console.log(err.stack);
-    res.status(404).send(`UNABLE TO POST NEW BOOKING`);
-  })
+  .catch(err => res.status(404).send(`UNABLE TO POST NEW BOOKING`))
 })
 
 app.put('/booking/update/:bookingId', (req, res) => {  
@@ -47,10 +38,7 @@ app.put('/booking/update/:bookingId', (req, res) => {
 
   query.updateBooking(bookingId, req.body)
   .then(() => res.status(202).end('UPDATED BOOKING!'))
-  .catch(err => {
-    console.log(err)
-    res.status(404).end(`UNABLE TO UPDATE BOOKING ${bookingId}`);
-  })
+  .catch(err => res.status(404).end(`UNABLE TO UPDATE BOOKING ${bookingId}`))
 })
 
 app.delete('/booking/delete/:bookingId', (req, res) => {  
