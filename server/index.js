@@ -15,8 +15,14 @@ app.use('/:id', express.static(__dirname + '/../client/dist')); //this one is wh
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
   query.getListing(listingId)
-  .then(results => res.status(200).send(JSON.stringify(results.rows[0])))
-  .catch(err => res.status(404).send(`LISTING WITH ID OF ${listingId} NOT FOUND`))
+  .then(results => {
+    console.log(results.rows[0]);
+    res.status(200).send(JSON.stringify(results.rows[0]));
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(404).send(`LISTING WITH ID OF ${listingId} NOT FOUND`);
+  })
 })
 
 
