@@ -8,17 +8,14 @@ const port = 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/../public')); 
 app.use(express.static(__dirname + '/../client/dist'));
-app.use('/:id', express.static(__dirname + '/../client/dist')); //this one is when not using proxy, but just requesting this service from the browser
-
+app.use('/:id', express.static(__dirname + '/../client/dist')); 
 
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
   query.getListing(listingId)
-  .then(results => {
-    console.log(results.rows[0]);
-    res.status(200).send(JSON.stringify(results.rows[0]));
-  })
+  .then(results => res.status(200).send(JSON.stringify(results.rows[0])))
   .catch(err => {
     console.log(err);
     res.status(404).send(`LISTING WITH ID OF ${listingId} NOT FOUND`);
