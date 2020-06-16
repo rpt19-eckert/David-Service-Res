@@ -1,4 +1,5 @@
 const nr = require('newrelic');
+const redis = require('redis');
 const express = require('express');
 const app = express();
 const cors = require('cors');
