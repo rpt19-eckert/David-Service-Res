@@ -13,15 +13,9 @@ app.use(express.static(__dirname + '/../public'));
 app.use(express.static(__dirname + '/../client/dist'));
 app.use('/:id', express.static(__dirname + '/../client/dist')); 
 
-
-
-
-
-
-
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
-  console.log(`hits /listing/${listingId}`);
+  //console.log(`hits /listing/${listingId}`);
   query.getListing(listingId)
   .then(results => res.status(200).send(JSON.stringify(results.rows[0])))
   .catch(err => {
@@ -29,7 +23,6 @@ app.get('/listing/:listingId', (req, res) => {
     res.status(404).send(`LISTING WITH ID OF ${listingId} NOT FOUND`);
   })
 })
-
 
 app.get('/bookings/:listingId', (req, res) => {  
   var { listingId } = req.params;
