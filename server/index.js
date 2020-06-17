@@ -27,7 +27,10 @@ app.get('/listing/:listingId', (req, res) => {
 app.get('/bookings/:listingId', (req, res) => {  
   var { listingId } = req.params;
   query.getListingBookings(listingId)
-  .then(results => res.status(200).send(JSON.stringify(results.rows)))
+  .then(results => {
+    console.log(results.rows)
+    res.status(200).send(JSON.stringify(results.rows));
+  })
   .catch(err => res.status(404).send(`BOOKINGS WITH LISTING OF ID ${listingId} NOT FOUND`))
 })
 
