@@ -1,11 +1,17 @@
 const nr = require('newrelic');
-const redis = require('redis');
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const query = require ('../database/queries');
 const port = 3001;
+const redis = require('redis');
+const client = redis.createClient({
+  port: 6379,
+  host: '54.219.82.254'
+});
+
+
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -13,11 +19,23 @@ app.use(express.static(__dirname + '/../public'));
 app.use(express.static(__dirname + '/../client/dist'));
 app.use('/:id', express.static(__dirname + '/../client/dist')); 
 
+// app.use((req, res, next) => {
+//   client.set
+//   next();
+// })
+
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
   //console.log(`hits /listing/${listingId}`);
+  console.log(req.route)
   query.getListing(listingId)
-  .then(results => res.status(200).send(JSON.stringify(results.rows[0])))
+  .then(results => {
+    var stringedResults = JSON.stringify(results.rows[0]);
+
+
+
+    res.status(200).send(stringedResults);
+  })
   .catch(err => {
     console.log(err);
     res.status(404).send(`LISTING WITH ID OF ${listingId} NOT FOUND`);
