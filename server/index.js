@@ -17,18 +17,18 @@ app.use(express.static(__dirname + '/../public'));
 app.use(express.static(__dirname + '/../client/dist'));
 app.use('/:id', express.static(__dirname + '/../client/dist')); 
 
-// app.use((req, res, next) => {
-//   console.log(req.url)
-//   client.get(req.url, (err, redisValue) => {
-//     if (err) console.error(err);
-//     console.log(redisValue);
-//     if (redisValue === null) {
-//       next();
-//     } else {
-//       res.status(200).send(redisValue);
-//     }
-//   })
-// })
+app.use((req, res, next) => {
+  //console.log(req.url)
+  client.get(req.url, (err, redisValue) => {
+    if (err) console.error(err);
+    //console.log(redisValue);
+    if (redisValue === null) {
+      next();
+    } else {
+      res.status(200).send(redisValue);
+    }
+  })
+})
 
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
@@ -36,11 +36,11 @@ app.get('/listing/:listingId', (req, res) => {
   query.getListing(listingId)
   .then(results => {
     var stringedResults = JSON.stringify(results.rows[0]);
-    //client.set(req.url, stringedResults, (err) => {
-      //if (err) console.error(err);
+    client.set(req.url, stringedResults, (err) => {
+      if (err) console.error(err);
       //console.log(stringedResults);
       res.status(200).send(stringedResults);
-    //})
+    })
   })
   .catch(err => {
     console.log(err);
