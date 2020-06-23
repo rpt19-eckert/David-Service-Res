@@ -8,7 +8,7 @@ const port = 3001;
 const redis = require('redis');
 const client = redis.createClient({
   port: 6379,
-  host: '54.219.82.254'
+  host: '54.151.1.96'
 });
 
 
@@ -31,8 +31,6 @@ app.get('/listing/:listingId', (req, res) => {
   query.getListing(listingId)
   .then(results => {
     var stringedResults = JSON.stringify(results.rows[0]);
-
-
 
     res.status(200).send(stringedResults);
   })
