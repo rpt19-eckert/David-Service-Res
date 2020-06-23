@@ -38,6 +38,7 @@ app.get('/listing/:listingId', (req, res) => {
     var stringedResults = JSON.stringify(results.rows[0]);
     //client.set(req.url, stringedResults, (err) => {
       //if (err) console.error(err);
+      console.log(stringedResults);
       res.status(200).send(stringedResults);
     //})
   })
