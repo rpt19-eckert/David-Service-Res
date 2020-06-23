@@ -11,8 +11,6 @@ const client = redis.createClient({
   host: '54.151.1.96'
 });
 
-
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../public')); 
@@ -20,19 +18,28 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use('/:id', express.static(__dirname + '/../client/dist')); 
 
 // app.use((req, res, next) => {
-//   client.set
-//   next();
+//   console.log(req.url)
+//   client.get(req.url, (err, redisValue) => {
+//     if (err) console.error(err);
+//     console.log(redisValue);
+//     if (redisValue === null) {
+//       next();
+//     } else {
+//       res.status(200).send(redisValue);
+//     }
+//   })
 // })
 
 app.get('/listing/:listingId', (req, res) => {
   var { listingId } = req.params;
-  //console.log(`hits /listing/${listingId}`);
-  console.log(req.route)
+
   query.getListing(listingId)
   .then(results => {
     var stringedResults = JSON.stringify(results.rows[0]);
-
-    res.status(200).send(stringedResults);
+    //client.set(req.url, stringedResults, (err) => {
+      //if (err) console.error(err);
+      res.status(200).send(stringedResults);
+    //})
   })
   .catch(err => {
     console.log(err);
