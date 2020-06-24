@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   //console.log(req.url)
   client.get(req.url, (err, redisValue) => {
     if (err) console.error(err);
-    //console.log(redisValue);
+    console.log(redisValue);
     if (redisValue === null) {
       next();
     } else {
@@ -38,7 +38,7 @@ app.get('/listing/:listingId', (req, res) => {
     var stringedResults = JSON.stringify(results.rows[0]);
     client.set(req.url, stringedResults, (err) => {
       if (err) console.error(err);
-      //console.log(stringedResults);
+      console.log(stringedResults);
       res.status(200).send(stringedResults);
     })
   })
