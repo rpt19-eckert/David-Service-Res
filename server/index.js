@@ -8,7 +8,7 @@ const port = 3001;
 const redis = require('redis');
 const client = redis.createClient({
   port: 6379,
-  host: '54.151.1.96'
+  host: '13.56.230.185'
 });
 
 app.use(cors());
