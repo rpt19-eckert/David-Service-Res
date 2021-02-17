@@ -1,35 +1,25 @@
-# Project: Front-End Capstone
+# Project: Revervations Service
 
 ## Table of Contents
 1. [Overview](#Overview)
-1. [Other Services](#Other-Services)
-1. [Usage](#Usage)
-1. [Tech Stack](#Tech-Stack)
-1. [Copyright and License](#Copyright-and-License)
+2. [Other Services](#Other-Services)
+3. [Usage](#Usage)
+4. [Tech Stack](#Tech-Stack)
+5. [Copyright and License](#Copyright-and-License)
 
 ## Overview
-The Reservation Module includes a calendar feature.
-This Reservation Module Service was designed and written together with three other services to create an Item Listing Page within a team of 4 people.
+The Reservations service is an inherited service with legacy code. I scaled the service using NGINX, AWS EC2 instances, and Redis.
 
 ### My contributions:
 
-* Designed and built the Reservation Module.
-* Coordinated and deployed entire team’s modules on proxy server EC2 instance.
-* Utilized agile workflow practices on a 4 -person remote team.
-
-
-
+* Scaled the service to handle 5,200rps with 2000ms latency and 1% error rate on a database with 10 million primary records
 
 
 ## Other Services
 
-  1. [Reviews Service](https://github.com/rpt19-umibozu/devjce-fec-service)
+  1. [Photo Carousel](https://github.com/rpt19-eckert/Photo-Carousel-Service)
 
-  1. [Photo Carousel](https://github.com/rpt19-umibozu/jason_FEC_service)
-
-  1. [Recommendation Service](https://github.com/rpt19-umibozu/FEC-Youzhu-recommendation)
-
-
+  2. [Recommendation Service](https://github.com/rpt19-eckert/Dustins-Rec-Service)
 
 
 ## Usage
@@ -37,12 +27,11 @@ This Reservation Module Service was designed and written together with three oth
 ### npm install
   Install the dependencies in a local node_modules folder
 
-### npm run seed-db
+### npm run load-data-postgreSQL
   Seed the database
 
-### npm run react-dev
-  Builds the app for production to the build folder.
-  It correctly bundles React in production mode and optimizes the build for the best performance.
+### npm run webpack
+  Bundles React in production mode and optimizes the build for the best performance.
 
 ### npm run start
   Runs the app in the development mode.
@@ -54,13 +43,15 @@ This Reservation Module Service was designed and written together with three oth
 - JavaScript
 - React
 - Node/Express
-- MYSQL
+- PostgreSQL
 - Webpack
 - Babel
 - Jest
 - Enzyme
 - SuperTest
 - AWS (EC2, S3)
+- Redis
+- NGINX
 
 
 
